@@ -206,55 +206,59 @@ Description : DOM Elements.
         <script>
             document.addEventListener('DOMContentLoaded', function afterRender() {
                 // Task 1: Set the text content of all elements with the class 'companyName' and remove their border
-                document.querySelectorAll('.companyName').forEach(element => {
-                    element.textContent = 'Guntaas Uppal & Jindjeet Cheema';
+                document.querySelectorAll('.companyName').forEach(function(element) {
+                    element.textContent = 'Guntaas Uppal and Jindjeet Cheema';
                     element.style.border = 'none';
                 });
-        
-                // Task 2: Change the background color of the navigation bar
-                document.querySelector('nav').style.backgroundColor = '#4CAF50'; // Example: A shade of green
-        
-                // Task 3: Hide the section titled 'What is full-stack?'
+            
+				// Task 2: Change the background color of the navigation bar
+                document.querySelector('nav').style.backgroundColor = '#4CAF50'; // Example green color
+            
+				// Task 3: Hide the section titled 'What is full-stack?'
                 document.querySelector('article').style.display = 'none';
-        
-                // Task 4: Create a new <p> element and append it to the 'About Us' section
-                let newParagraph = document.createElement('p');
-                newParagraph.textContent = 'This is a new paragraph about our company.';
-                document.querySelector('section').appendChild(newParagraph); // Assuming the first <section> is 'About Us'
-        
-                // Task 5: Add placeholders to input elements based on their corresponding label IDs
-                document.querySelectorAll('input[type="text"], input[type="email"]').forEach(input => {
+            
+				// Task 4: Create a new <p> element and append it to the 'About Us' section
+                const newPara = document.createElement('p');
+                newPara.textContent = 'This is a new paragraph.';
+                newPara.style.color = 'red'; // Set text color to red
+                document.querySelector('section').appendChild(newPara);
+
+            
+				// Task 5: Add placeholders to input elements based on their corresponding label IDs
+                document.querySelectorAll('input[type=text], input[type=email]').forEach(input => {
                     const label = document.querySelector(`label[for="${input.id}"]`);
-                    if (label) input.placeholder = `Enter your ${label.innerText.toLowerCase()}`;
+                    if (label) {
+                        input.placeholder = `Enter your ${label.textContent.toLowerCase().replace(':', '')}`;
+                    }
                 });
-        
-                // Task 6: Set the src attribute of the image
-                const img = document.querySelector('img');
-                img.src = './images/new-logo.svg';
-        
-                // Task 7: Add a new item in the navigation menu
-                const newItem = document.createElement('li');
-                const newLink = document.createElement('a');
-                newLink.href = '#';
-                newLink.textContent = 'Blog';
-                newItem.appendChild(newLink);
-                document.querySelector('nav ul').appendChild(newItem);
-        
-                // Task 8: Change the submit button text upon clicking and make it disabled
-                const submitBtn = document.querySelector('input[type="button"]');
-                submitBtn.addEventListener('click', function() {
+            
+				// Task 6: Set the src attribute of the image
+                document.querySelector('img').src = './images/new-logo.svg';
+            
+				// Task 7: Add a new item in the navigation menu
+                const ul = document.querySelector('nav ul');
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = '#';
+                a.textContent = 'Blog';
+                li.appendChild(a);
+                ul.appendChild(li);
+            
+				// Task 8: Change the submit button text upon clicking and make it disabled
+                const submitButton = document.querySelector('input[type="button"]');
+                submitButton.addEventListener('click', function() {
                     this.value = 'Submitted';
                     this.disabled = true;
                 });
-        
-                // Task 9: Change the text color of each item in the 'Related Links' to green
+            
+				// Task 9: Change the text color of each item in the 'Related Links' to green
                 document.querySelectorAll('aside a').forEach(link => {
                     link.style.color = 'green';
                 });
-        
-                // Task 10: Add a red solid border to the footer
+            
+				// Task 10: Add a red solid border to the footer
                 document.querySelector('footer').style.border = '2px solid red';
-            });
-        </script>        
+                });
+        </script>
 	</body>
 </html>
