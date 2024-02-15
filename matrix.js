@@ -50,39 +50,25 @@ const showResult = (title, containerId, rows, cols, dataArray) => {
     container.appendChild(table);
 };
 
-const showResult2D = (title, containerId, dataArray) => {
-    // Find the container in the document
+function showResult2D(title, containerId, matrix) {
     const container = document.getElementById(containerId);
-    if (!container) {
-        console.error('Container not found');
-        return;
-    }
+    container.innerHTML = `<h3>${title}</h3>`; // Add a title to the result section
 
-    // Create a title element
-    const titleElement = document.createElement('h2');
-    titleElement.textContent = title;
-    container.appendChild(titleElement);
-
-    // Create a table to represent the dataArray
     const table = document.createElement('table');
-    table.style.width = '100%';
-    table.setAttribute('border', '1');
-  
-    dataArray.forEach(row => {
-        const tr = document.createElement('tr'); // Create a new row
+    matrix.forEach(row => {
+        const tableRow = document.createElement('tr');
         row.forEach(cell => {
-            const td = document.createElement('td');
-            td.textContent = cell;
-            td.style.padding = '8px'; // Optional: Add some padding for readability
-            td.style.textAlign = 'center'; // Center the text
-            tr.appendChild(td);
+            const tableCell = document.createElement('td');
+            tableCell.innerText = cell;
+            tableRow.appendChild(tableCell);
         });
-        table.appendChild(tr);
+        table.appendChild(tableRow);
     });
 
-    // Append the table to the container
     container.appendChild(table);
 };
+
+
 
   function performOperation(operation) {
     let matrix1 = getMatrixData2D('matrix1');
@@ -144,60 +130,48 @@ const getMatrixData2D = function (matrixId) {
     return matrixData;
 };
 
-
-// Add your matrix calculation functions here
-// The functions must check the posibility of calculation too.
-function addMatrices(matrix1, matrix2){ 
-  // Check if both matrices have the same dimensions
+function addMatrices(matrix1, matrix2) {
     if (matrix1.length !== matrix2.length || matrix1[0].length !== matrix2[0].length) {
-        throw new Error('Matrices must have the same dimensions');
+        console.error("Matrices dimensions do not match for addition.");
+        return;
     }
-
-    let resultMatrix = [];
+    let result = [];
     for (let i = 0; i < matrix1.length; i++) {
-        resultMatrix[i] = []; // Initialize a new row in the result matrix
-            for (let j = 0; j < matrix1[i].length; j++) {
-                // Add corresponding elements from both matrices
-                resultMatrix[i][j] = matrix1[i][j] + matrix2[i][j];
-            }
-    }
-
-    return resultMatrix;
-}
-const subtractMatrices = function (matrix1, matrix2) { 
-	// Check if both matrices have the same dimensions
-    if (matrix1.length !== matrix2.length || matrix1[0].length !== matrix2[0].length) {
-        throw new Error('Matrices must have the same dimensions');
-    }
-    
-    let resultMatrix = [];
-    for (let i = 0; i < matrix1.length; i++) {
-        resultMatrix[i] = []; // Initialize a new row in the result matrix
+        result[i] = [];
         for (let j = 0; j < matrix1[i].length; j++) {
-            // Subtract elements of matrix2 from matrix1
-            resultMatrix[i][j] = matrix1[i][j] - matrix2[i][j];
+            result[i][j] = matrix1[i][j] + matrix2[i][j];
         }
     }
-    
-    return resultMatrix;
+    return result;
 };
-const multiplyMatrices = (matrix1, matrix2) => { 
-    // Check if multiplication is possible
-    if (matrix1[0].length !== matrix2.length) {
-        throw new Error('Number of columns in the first matrix must be equal to the number of rows in the second matrix');
-    }
 
-    let resultMatrix = [];
+const subtractMatrices = function(matrix1, matrix2) {
+    if (matrix1.length !== matrix2.length || matrix1[0].length !== matrix2[0].length) {
+        console.error("Matrices dimensions do not match for subtraction.");
+        return;
+    }
+    let result = [];
     for (let i = 0; i < matrix1.length; i++) {
-        resultMatrix[i] = [];
+        result[i] = [];
+        for (let j = 0; j < matrix1[i].length; j++) {
+            result[i][j] = matrix1[i][j] - matrix2[i][j];
+        }
+    }
+    return result;
+};
+
+const multiplyMatrices = (matrix1, matrix2) => {
+    if (matrix1[0].length !== matrix2.length) {
+        console.error("Matrices dimensions do not match for multiplication.");
+        return;
+    }
+    let result = new Array(matrix1.length).fill(0).map(() => new Array(matrix2[0].length).fill(0));
+    for (let i = 0; i < matrix1.length; i++) {
         for (let j = 0; j < matrix2[0].length; j++) {
-            resultMatrix[i][j] = 0; // Initialize the current element
             for (let k = 0; k < matrix1[0].length; k++) {
-            // Perform the multiplication and addition
-            resultMatrix[i][j] += matrix1[i][k] * matrix2[k][j];
+                result[i][j] += matrix1[i][k] * matrix2[k][j];
             }
         }
     }
-
-    return resultMatrix;
+    return result;
 };
