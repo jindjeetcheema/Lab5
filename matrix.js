@@ -70,7 +70,7 @@ function showResult2D(title, containerId, matrix) {
 
 
 
-  function performOperation(operation) {
+function performOperation(operation) {
     let matrix1 = getMatrixData2D('matrix1');
     let matrix2 = getMatrixData2D('matrix2');
     let result;
