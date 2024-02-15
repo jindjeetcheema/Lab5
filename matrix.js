@@ -104,11 +104,56 @@ const getMatrixData2D = function (matrixId) {
 // Add your matrix calculation functions here
 // The functions must check the posibility of calculation too.
 function addMatrices(matrix1, matrix2){ 
-	// provide the code
+  // Check if both matrices have the same dimensions
+    if (matrix1.length !== matrix2.length || matrix1[0].length !== matrix2[0].length) {
+        throw new Error('Matrices must have the same dimensions');
+    }
+
+    let resultMatrix = [];
+    for (let i = 0; i < matrix1.length; i++) {
+        resultMatrix[i] = []; // Initialize a new row in the result matrix
+            for (let j = 0; j < matrix1[i].length; j++) {
+                // Add corresponding elements from both matrices
+                resultMatrix[i][j] = matrix1[i][j] + matrix2[i][j];
+            }
+    }
+
+    return resultMatrix;
 }
 const subtractMatrices = function (matrix1, matrix2) { 
-	// provide the code
+	// Check if both matrices have the same dimensions
+    if (matrix1.length !== matrix2.length || matrix1[0].length !== matrix2[0].length) {
+        throw new Error('Matrices must have the same dimensions');
+    }
+    
+    let resultMatrix = [];
+    for (let i = 0; i < matrix1.length; i++) {
+        resultMatrix[i] = []; // Initialize a new row in the result matrix
+        for (let j = 0; j < matrix1[i].length; j++) {
+            // Subtract elements of matrix2 from matrix1
+            resultMatrix[i][j] = matrix1[i][j] - matrix2[i][j];
+        }
+    }
+    
+    return resultMatrix;
 };
 const multiplyMatrices = (matrix1, matrix2) => { 
-	// provide the code
+    // Check if multiplication is possible
+    if (matrix1[0].length !== matrix2.length) {
+        throw new Error('Number of columns in the first matrix must be equal to the number of rows in the second matrix');
+    }
+
+    let resultMatrix = [];
+    for (let i = 0; i < matrix1.length; i++) {
+        resultMatrix[i] = [];
+        for (let j = 0; j < matrix2[0].length; j++) {
+            resultMatrix[i][j] = 0; // Initialize the current element
+            for (let k = 0; k < matrix1[0].length; k++) {
+            // Perform the multiplication and addition
+            resultMatrix[i][j] += matrix1[i][k] * matrix2[k][j];
+            }
+        }
+    }
+
+    return resultMatrix;
 };
