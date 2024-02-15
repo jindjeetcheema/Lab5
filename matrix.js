@@ -52,8 +52,7 @@ const showResult = (title, containerId, rows, cols, dataArray) => {
 
 function showResult2D(title, containerId, matrix) {
     const container = document.getElementById(containerId);
-    container.innerHTML = `<h3>${title}</h3>`; // Add a title to the result section
-
+    container.innerHTML = `<h3>${title}</h3>`;
     const table = document.createElement('table');
     matrix.forEach(row => {
         const tableRow = document.createElement('tr');
@@ -64,7 +63,6 @@ function showResult2D(title, containerId, matrix) {
         });
         table.appendChild(tableRow);
     });
-
     container.appendChild(table);
 };
 
